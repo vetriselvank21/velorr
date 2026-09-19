@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 64" role="img" aria-labelledby="velorrLogoTitle">
+  <title id="velorrLogoTitle">Velorr Industries</title>
+  <!-- Mark: three stacked blocks, offset like bonded brickwork -->
+  <g>
+    <rect x="0" y="30" width="24" height="16" fill="#E0672B"/>
+    <rect x="26" y="30" width="24" height="16" fill="#14213D"/>
+    <rect x="12" y="12" width="24" height="16" fill="#14213D"/>
+    <rect x="38" y="12" width="12" height="16" fill="#E0672B"/>
+  </g>
+  <!-- Wordmark -->
+  <text x="64" y="34" font-family="Archivo, Arial, sans-serif" font-weight="800" font-size="26" letter-spacing="0.5" fill="#14213D">VELORR</text>
+  <text x="64" y="52" font-family="Archivo, Arial, sans-serif" font-weight="600" font-size="13" letter-spacing="3.5" fill="#4B5563">INDUSTRIES</text>
+</svg>
