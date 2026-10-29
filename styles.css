@@ -890,3 +890,86 @@ textarea:focus-visible {
   section { padding: 56px 0; }
   .hero { padding-top: 40px; }
 }
+
+
+/* =========================================================
+   IMAGE INTERACTION — subtle lift/zoom on hover or keyboard focus
+   ========================================================= */
+
+/* Smooth, responsive image feedback without changing document layout. */
+.hero-visual img,
+.product-card .product-media img,
+.gallery-item img,
+.map-card img {
+  transition: transform 220ms ease, filter 220ms ease;
+  transform-origin: center;
+}
+
+/* Hero image: gently zoom in while keeping the full image visible. */
+.hero-visual {
+  overflow: hidden;
+}
+
+.hero-visual:hover img,
+.hero-visual:focus-within img {
+  transform: scale(1.025);
+  filter: brightness(1.04);
+}
+
+/* Product images: slight zoom and brighter appearance. */
+.product-card .product-media {
+  overflow: hidden;
+}
+
+.product-card:hover .product-media img,
+.product-card:focus-within .product-media img {
+  transform: scale(1.04);
+  filter: brightness(1.04);
+}
+
+/* Gallery images: more noticeable zoom on hover/focus. */
+.gallery-item img {
+  transition: transform 250ms ease, filter 250ms ease;
+}
+
+.gallery-item:hover img,
+.gallery-item:focus-within img {
+  transform: scale(1.06);
+  filter: brightness(1.05);
+}
+
+/* Map/contact image: subtle lift effect. */
+.map-card {
+  transition: box-shadow 220ms ease, border-color 220ms ease;
+}
+
+.map-card:hover {
+  border-color: var(--orange);
+  box-shadow: 0 8px 24px rgba(14, 24, 48, 0.14);
+}
+
+.map-card:hover img {
+  transform: scale(1.02);
+}
+
+/* Respect users who prefer reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  .hero-visual img,
+  .product-card .product-media img,
+  .gallery-item img,
+  .map-card,
+  .map-card img {
+    transition: none;
+  }
+
+  .hero-visual:hover img,
+  .hero-visual:focus-within img,
+  .product-card:hover .product-media img,
+  .product-card:focus-within .product-media img,
+  .gallery-item:hover img,
+  .gallery-item:focus-within img,
+  .map-card:hover img {
+    transform: none;
+  }
+}
+
