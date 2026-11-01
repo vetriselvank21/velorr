@@ -1,13 +1,272 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Job Opportunities | Velorr Industries</title><meta name="description" content="Explore current job opportunities at Velorr Industries in Gunamangalam, Cuddalore. Apply through WhatsApp."><link rel="canonical" href="https://velorrindustries.in/careers/"><link rel="stylesheet" href="../assets/careers.css"></head><body>
-<header class="top"><a class="brand" href="/">VELORR INDUSTRIES</a><nav><a href="/">Home</a><a href="/#about">About Us</a><a href="/#products">Products</a><a href="/careers/">Job Opportunities</a><a href="/#contact">Contact Us</a></nav></header>
-<section class="hero"><div class="wrap"><div style="color:#f2925e;font-weight:bold">CAREERS AT VELORR INDUSTRIES</div><h1>Build your career with us.</h1><p>Explore current opportunities with our manufacturing team in Gunamangalam, Cuddalore. Select a vacancy to enquire and apply through WhatsApp.</p></div></section>
-<main class="section"><h2>Current Job Opportunities</h2><p class="muted">Only currently published vacancies are shown here.</p><div id="jobs" class="jobs"><div class="panel">Loading opportunities…</div></div></main><footer class="footer">© <span id="year"></span> Velorr Industries · <a href="/">Main website</a></footer>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="/assets/supabase-config.js"></script><script>
-document.getElementById('year').textContent=new Date().getFullYear();const box=document.getElementById('jobs');
-const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-async function run(){if(!window.supabase||!window.VELORR_SUPABASE_URL||window.VELORR_SUPABASE_URL.includes('YOUR_')){box.innerHTML='<div class="panel">Careers portal setup is in progress. Please check back soon.</div>';return}
-const db=window.supabase.createClient(window.VELORR_SUPABASE_URL,window.VELORR_SUPABASE_ANON_KEY);const {data,error}=await db.from('jobs').select('*').eq('status','published').order('created_at',{ascending:false});
-if(error){box.innerHTML='<div class="panel">Vacancies are temporarily unavailable. Please contact us through the main website.</div>';return}
-if(!data.length){box.innerHTML='<div class="panel">There are no active vacancies at the moment. Please check again later.</div>';return}
-box.innerHTML=data.map(j=>{const text=encodeURIComponent(`Hello Velorr Industries, I would like to apply for ${j.job_title}.\nName:\nExperience:\nLocation:\nPlease share the next steps.`);return `<article class="job"><h3>${esc(j.job_title)}</h3><div class="meta">${esc(j.department||'General')} · ${esc(j.employment_type||'Full-time')}<br>${esc(j.location||'Gunamangalam, Cuddalore')}<br>Experience: ${esc(j.experience||'Not specified')} · Vacancies: ${esc(j.vacancies||1)}${j.salary?'<br>Salary: '+esc(j.salary):''}${j.application_deadline?'<br>Apply by: '+esc(j.application_deadline):''}</div><p class="desc">${esc(j.description)}</p>${j.requirements?'<p class="desc"><b>Requirements</b><br>'+esc(j.requirements)+'</p>':''}<a class="btn" target="_blank" rel="noopener" href="https://wa.me/${window.VELORR_WHATSAPP_NUMBER}?text=${text}">Apply via WhatsApp</a></article>`}).join('')}
-run();</script></body></html>
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Job Opportunities | Velorr Industries</title>
+<meta name="description" content="Explore current job opportunities at Velorr Industries in Gunamangalam, Cuddalore. Apply through WhatsApp.">
+<link rel="canonical" href="https://velorrindustries.in/careers/">
+<link rel="stylesheet" href="../assets/careers.css">
+</head>
+
+<body>
+
+<header class="top">
+  <a class="brand" href="/">VELORR INDUSTRIES</a>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/#about">About Us</a>
+    <a href="/#products">Products</a>
+    <a href="/careers/">Job Opportunities</a>
+    <a href="/#contact">Contact Us</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div style="color:#f2925e;font-weight:bold">
+      CAREERS AT VELORR INDUSTRIES
+    </div>
+    <h1>Build your career with us.</h1>
+    <p>
+      Explore current opportunities with our manufacturing team in
+      Gunamangalam, Cuddalore. Select a vacancy to view the full details
+      and apply through WhatsApp.
+    </p>
+  </div>
+</section>
+
+<main class="section">
+
+  <a id="backLink" class="back-link hidden" href="/careers/">
+    ← Back to all opportunities
+  </a>
+
+  <h2 id="pageHeading">Current Job Opportunities</h2>
+
+  <p id="pageSubtitle" class="muted">
+    Explore our current vacancies and find the right opportunity for you.
+  </p>
+
+  <div id="jobs" class="jobs">
+    <div class="panel">Loading opportunities…</div>
+  </div>
+
+</main>
+
+<footer class="footer">
+  © <span id="year"></span> Velorr Industries ·
+  <a href="/">Main website</a>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/assets/supabase-config.js"></script>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+const box = document.getElementById('jobs');
+const heading = document.getElementById('pageHeading');
+const subtitle = document.getElementById('pageSubtitle');
+const backLink = document.getElementById('backLink');
+
+const params = new URLSearchParams(window.location.search);
+const selectedJobId = params.get('job');
+
+const esc = value =>
+  String(value ?? '').replace(/[&<>"']/g, char => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }[char]));
+
+function whatsappLink(job) {
+  const message = encodeURIComponent(
+`Hello Velorr Industries,
+
+I am interested in applying for the position of ${job.job_title}.
+
+Name:
+Age:
+Experience:
+Location:
+
+Please share the next steps.`
+  );
+
+  return `https://wa.me/${window.VELORR_WHATSAPP_NUMBER}?text=${message}`;
+}
+
+function renderJobList(data) {
+
+  heading.textContent = 'Current Job Opportunities';
+  subtitle.textContent =
+    'Explore our current vacancies and find the right opportunity for you.';
+
+  backLink.classList.add('hidden');
+
+  box.className = 'jobs';
+
+  box.innerHTML = data.map(job => {
+
+    const summary = String(job.description || '')
+      .replace(/\s+/g, ' ')
+      .trim();
+
+    const preview = summary.length > 160
+      ? summary.substring(0, 160) + '...'
+      : summary;
+
+    return `
+      <article class="job job-card">
+
+        <h3>${esc(job.job_title)}</h3>
+
+        <div class="job-tags">
+          <span>${esc(job.employment_type || 'Full-time')}</span>
+          <span>${esc(job.department || 'General')}</span>
+        </div>
+
+        <div class="meta">
+          <div>📍 ${esc(job.location || 'Gunamangalam, Cuddalore')}</div>
+          <div>Experience: ${esc(job.experience || 'Not specified')}</div>
+          <div>Vacancies: ${esc(job.vacancies || 1)}</div>
+        </div>
+
+        <p class="job-preview">${esc(preview)}</p>
+
+        <a class="btn" href="/careers/?job=${encodeURIComponent(job.id)}">
+          View Details →
+        </a>
+
+      </article>
+    `;
+
+  }).join('');
+}
+
+function renderJobDetails(job) {
+
+  heading.textContent = job.job_title;
+  subtitle.textContent = 'Complete job description and application details.';
+
+  backLink.classList.remove('hidden');
+
+  box.className = 'job-detail';
+
+  box.innerHTML = `
+
+    <div class="detail-header">
+
+      <div class="job-tags">
+        <span>${esc(job.employment_type || 'Full-time')}</span>
+        <span>${esc(job.department || 'General')}</span>
+      </div>
+
+      <div class="meta detail-meta">
+        <div>📍 ${esc(job.location || 'Gunamangalam, Cuddalore')}</div>
+        <div>Experience: ${esc(job.experience || 'Not specified')}</div>
+        <div>Vacancies: ${esc(job.vacancies || 1)}</div>
+        ${job.salary ? `<div>Salary: ${esc(job.salary)}</div>` : ''}
+        ${job.application_deadline
+          ? `<div>Application deadline: ${esc(job.application_deadline)}</div>`
+          : ''}
+      </div>
+
+    </div>
+
+    <section class="detail-section">
+      <h3>Job Description</h3>
+      <div class="desc">${esc(job.description)}</div>
+    </section>
+
+    ${job.requirements ? `
+      <section class="detail-section">
+        <h3>Requirements / Qualifications</h3>
+        <div class="desc">${esc(job.requirements)}</div>
+      </section>
+    ` : ''}
+
+    <div class="apply-section">
+      <h3>Interested in this position?</h3>
+      <p>Contact Velorr Industries through WhatsApp to enquire and apply.</p>
+
+      <a class="btn apply-btn"
+         href="${whatsappLink(job)}"
+         target="_blank"
+         rel="noopener">
+        Apply via WhatsApp →
+      </a>
+    </div>
+
+  `;
+}
+
+async function run() {
+
+  if (
+    !window.supabase ||
+    !window.VELORR_SUPABASE_URL ||
+    !window.VELORR_SUPABASE_ANON_KEY ||
+    window.VELORR_SUPABASE_URL.includes('YOUR_')
+  ) {
+    box.innerHTML =
+      '<div class="panel">Careers portal setup is in progress. Please check back soon.</div>';
+    return;
+  }
+
+  const db = window.supabase.createClient(
+    window.VELORR_SUPABASE_URL,
+    window.VELORR_SUPABASE_ANON_KEY
+  );
+
+  let query = db
+    .from('jobs')
+    .select('*')
+    .eq('status', 'published');
+
+  if (selectedJobId) {
+    query = query.eq('id', selectedJobId);
+  } else {
+    query = query.order('created_at', { ascending: false });
+  }
+
+  const { data, error } = await query;
+
+  if (error) {
+    box.innerHTML =
+      '<div class="panel">Vacancies are temporarily unavailable. Please contact us through the main website.</div>';
+    return;
+  }
+
+  if (!data || data.length === 0) {
+
+    if (selectedJobId) {
+      heading.textContent = 'Job Not Found';
+      subtitle.textContent = 'This vacancy may have expired or is no longer available.';
+      backLink.classList.remove('hidden');
+    }
+
+    box.innerHTML =
+      '<div class="panel">There are no available vacancies to display.</div>';
+
+    return;
+  }
+
+  if (selectedJobId) {
+    renderJobDetails(data[0]);
+  } else {
+    renderJobList(data);
+  }
+
+}
+
+run();
+</script>
+
+</body>
+</html>
+c
