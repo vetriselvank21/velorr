@@ -1,209 +1,123 @@
 
-* {
-  box-sizing: border-box;
-}
+/* Job listing cards */
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  color: #172033;
-  background: #f6f8fb;
-}
-
-.top {
-  background: #14213d;
-  color: white;
-  padding: 20px 5%;
+.job-card {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 15px;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 0;
 }
 
-.top a {
-  color: white;
-  text-decoration: none;
-  margin-right: 15px;
-}
-
-.brand {
-  font-weight: bold;
+.job-card h3 {
+  margin: 0;
   font-size: 20px;
+  color: #14213d;
 }
 
-.hero {
-  background: #14213d;
-  color: white;
-  padding: 65px 5%;
+.job-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
-.wrap,
-.section,
-.admin {
-  max-width: 1100px;
-  margin: auto;
+.job-tags span {
+  background: #edf1f7;
+  color: #344563;
+  border-radius: 20px;
+  padding: 6px 11px;
+  font-size: 12px;
+  font-weight: bold;
 }
 
-.hero h1 {
-  font-size: 48px;
-  margin: 15px 0;
+.job-preview {
+  color: #475467;
+  line-height: 1.6;
+  margin: 0;
 }
 
-.hero p {
-  color: #d7dfeb;
-  line-height: 1.7;
-  max-width: 650px;
+.job-card .btn {
+  align-self: flex-start;
+  margin-top: auto;
 }
 
-.section,
-.admin {
-  padding: 35px 20px;
+/* Job details page */
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: #14213d;
+  font-weight: bold;
+  text-decoration: none;
 }
 
-.jobs {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-  gap: 20px;
+.back-link:hover {
+  color: #e0672b;
 }
 
-.panel,
-.job {
+.job-detail {
   background: white;
   border: 1px solid #e1e6ef;
   border-radius: 12px;
-  padding: 22px;
-  margin-bottom: 20px;
+  padding: 30px;
   box-shadow: 0 4px 15px #14213d0a;
 }
 
-.job h3 {
+.detail-header {
+  padding-bottom: 22px;
+  border-bottom: 1px solid #e8ecf2;
+}
+
+.detail-meta {
+  margin-top: 15px;
+}
+
+.detail-section {
+  padding: 22px 0;
+  border-bottom: 1px solid #e8ecf2;
+}
+
+.detail-section h3 {
+  color: #14213d;
   margin-top: 0;
+  margin-bottom: 14px;
 }
 
-.meta,
-.muted {
-  color: #667085;
-  font-size: 13px;
+.detail-section .desc {
+  color: #475467;
   line-height: 1.8;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
 }
 
-.desc {
-  white-space: pre-line;
+.apply-section {
+  margin-top: 24px;
+  padding: 22px;
+  background: #f6f8fb;
+  border-radius: 10px;
+}
+
+.apply-section h3 {
+  margin-top: 0;
+  color: #14213d;
+}
+
+.apply-section p {
+  color: #667085;
   line-height: 1.6;
 }
 
-.btn {
-  display: inline-block;
-  background: #e0672b;
-  color: white;
-  border: none;
-  border-radius: 7px;
-  padding: 12px 18px;
-  text-decoration: none;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.secondary {
-  background: #e9edf4;
-  color: #172033;
-}
-
-.danger {
-  background: #b42318;
-  color: white;
-}
-
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-  margin-bottom: 15px;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
-}
-
-.full {
-  grid-column: 1 / -1;
-}
-
-label {
-  font-weight: bold;
-  font-size: 13px;
-}
-
-input,
-select,
-textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #cbd3df;
-  border-radius: 7px;
-  font: inherit;
-}
-
-textarea {
-  min-height: 110px;
-}
-
-.row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  padding: 15px 0;
-  border-top: 1px solid #e8ecf2;
-}
-
-.status {
-  background: #e8f7ed;
-  color: #16713a;
-  padding: 5px 10px;
-  border-radius: 20px;
-  font-size: 12px;
-}
-
-.draft {
-  background: #fff3d6;
-  color: #8a5700;
-}
-
-.hidden {
-  display: none !important;
-}
-
-.error {
-  color: #b42318;
-}
-
-.success {
-  color: #16713a;
-}
-
-.footer {
-  background: #14213d;
-  color: #d7dfeb;
-  text-align: center;
-  padding: 25px;
-  margin-top: 50px;
+.apply-btn {
+  margin-top: 8px;
 }
 
 @media (max-width: 650px) {
-  .grid {
+
+  .jobs {
     grid-template-columns: 1fr;
   }
 
-  .full {
-    grid-column: auto;
+  .job-detail {
+    padding: 20px;
   }
 
-  .hero h1 {
-    font-size: 36px;
-  }
 }
